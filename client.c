@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <unistd.h>
+#include <string.h>
 
+/**
 struct in_addr{
     unsigned long s_addr;
 };
@@ -12,6 +15,12 @@ struct sockaddr_in {
     struct in_addr sin_addr;
     char sin_zero[8];
 };
+**/
+
+void commun(int sock){
+    char *message = "404";
+    send(sock,message,strlen(message),0);
+}
 
 int main(int argc, char **argv){
     int sock = socket(PF_INET,SOCK_STREAM,0);
@@ -20,6 +29,7 @@ int main(int argc, char **argv){
     target.sin_addr.s_addr = inet_addr("10.13.64.20");
     target.sin_port = htons(10001);
     connect(sock,(struct sockaddr *)&target,sizeof(target));
+    commun(sock);
     close(sock);
     return 0;
 }
