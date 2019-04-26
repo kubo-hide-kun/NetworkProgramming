@@ -18,8 +18,11 @@ struct sockaddr_in {
 **/
 
 void commun(int sock){
+    char buf[256];
     char *message = "404";
     send(sock,message,strlen(message),0);
+    recv(sock,buf,256,0);
+    printf("%s\n",buf);
 }
 
 int main(int argc, char **argv){
