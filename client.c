@@ -10,9 +10,9 @@ struct in_addr{
 };
 
 struct sockaddr_in {
-    unsigned short sin_family;  //アドレスファミリ (TCP or IP)
-    unsigned short sin_port;    //アドレスポート (ポート番号)
-    struct in_addr sin_addr;    //IPアドレス
+    unsigned short sin_family;  // アドレスファミリ (TCP or IP)
+    unsigned short sin_port;    // アドレスポート (ポート番号)
+    struct in_addr sin_addr;    // IPアドレス
     char sin_zero[8];           // 不使用領域
 };
 **/
