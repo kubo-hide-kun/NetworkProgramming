@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <string.h>
+#include <stdio.h>              /* printf(),fprintf()に必要 */
+#include <sys/socket.h>         /* socket(),connect()に必要 */
+#include <arpa/inet.h>          /* sockaddr_in,inet_addr()に必要 */
+#include <string.h>             /* strlen()に必要 */
+#include <unistd.h>             /* close()に必要 */
 
 /**
 struct in_addr{
