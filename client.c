@@ -37,7 +37,7 @@ void commun(int sock){
 }
 
 int main(int argc, char **argv){
-    if(argc != 3)DieWithError("arguments is not available");        /* 実行時引数の数が正常であることを確認する */
+    if(argc != 3)DieWithError("arguments is not available");        /* 実行時引数の個数が正常であることを確認する */
     char *server_idaddr = argv[1];                                  /* サーバーのIPアドレスを実行時引数から取得 */
     int server_port = atoi(argv[2]);                                /* サーバーのポート番号を実行時引数から取得 */
 
