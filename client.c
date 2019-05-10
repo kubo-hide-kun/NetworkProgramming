@@ -24,7 +24,7 @@ void DieWithError(char *errorMessage){
 }
 
 void commun(int sock){
-    char buf[BUF_SIZE];                                              /* エコー文字列用のバッファ */
+    char buf[BUF_SIZE];                                             /* エコー文字列用のバッファ */
     char *message = "404";                                          /* 送信するメッセージ　*/
 
     if(send(sock,message,strlen(message),0)!=strlen(message))       /* サーバーにメッセージの送信 */
