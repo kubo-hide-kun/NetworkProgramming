@@ -3,6 +3,16 @@
 サーバーに接続するには学内PCを使用する必要がある。<br>
 学内PCでは `Cygwin` での `Git`コマンドの利用権限がないため、 `Cmd` を利用する。<br>
 
+## コマンド案内
+### cmd
+```
+$ cd /NetworkProgramming
+```
+### Cygwin
+```
+# cd /cygdrive/c/NetworkProgramming
+```
+
 ## 授業記録
 ### 2019-04-12 fri
 - `git` の設定
