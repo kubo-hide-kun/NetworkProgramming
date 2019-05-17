@@ -25,7 +25,7 @@ void DieWithError(char *errorMessage){
 
 void commun(int sock){
     char buf[BUF_SIZE];                                             /* エコー文字列用のバッファ */
-    char *message="";                                               /* 送信するメッセージ　*/
+    char message[BUF_SIZE]="";                                      /* 送信するメッセージ　*/
     scanf("%s",message);                                            /* メッセージをユーザーが入力する */
 
     if(send(sock,message,strlen(message),0)!=strlen(message))       /* サーバーにメッセージの送信 */
