@@ -36,7 +36,7 @@ void commun(int sock){
     printf("%s\n",buf);                                             /* 受信データを出力 */
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv){                                    /* 第一引数: コマンドライン引数の数, 第二引数: コマンドライン引数を格納した配列 */
     if(argc != 3)DieWithError("arguments is not available");        /* 実行時引数の個数が正常であることを確認する */
     char *server_idaddr = argv[1];                                  /* サーバーのIPアドレスを実行時引数から取得 */
     int server_port = atoi(argv[2]);                                /* サーバーのポート番号を実行時引数から取得 */
