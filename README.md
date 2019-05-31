@@ -11,6 +11,7 @@ $ cd /NetworkProgramming
 ### Cygwin
 ```
 # cd /cygdrive/c/NetworkProgramming
+# ./client.exe 10.13.64.48 10001
 ```
 
 ## 授業記録
