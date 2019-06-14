@@ -6,11 +6,11 @@
 ## コマンド案内
 ### cmd
 ```
-$ cd /NetworkProgramming
+C:\Users\k16083hk> cd NetworkProgramming
 ```
 ### Cygwin
 ```
-# cd /cygdrive/c/NetworkProgramming
+# cd /cygdrive/c/Users/k16083hk/NetworkProgramming
 # ./client.exe 10.13.64.48 10001
 ```
 
