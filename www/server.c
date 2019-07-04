@@ -4,6 +4,7 @@
 #include <arpa/inet.h>          /* sockaddr_in,inet_addr()に必要 */
 #include <string.h>             /* strlen()に必要 */
 #include <unistd.h>             /* close()に必要 */
+#include <string.h>             /* stringに必要 */
 #define BUF_SIZE 256            /* マジックナンバーで256の定義 */
 
 void DieWithError(char *errorMessage){
@@ -14,15 +15,18 @@ void DieWithError(char *errorMessage){
 void commun(int sock){
     char buf[BUF_SIZE];                                                                 /* エコー文字列用のバッファ */
     int len_r;                                                                          /* 受信文字数 */
-    char *message = "Accept!";
+    char responce[BUF_SIZE];
 
-    if((len_r=recv(sock,buf,BUF_SIZE,0))<=0)                                            /* 受信データをバッファに格納 */
-        DieWithError("recv()failed");                                                   /* 受信時エラー(文字量違反) */
-    
-    buf[len_r] = '\0';                                                                  /* 文末EOSの追加 */
-    printf("%s\n",buf);                                                                 /* 受信データを出力 */
-    if(send(sock, message, strlen(message), 0) != strlen(message))                                     /* クライアントに受け取ったデータを返却 */
-        DieWithError("send()sent a message of unexpected bytes");                       /* 送信時エラー(データの不一致) */
+    while((len_r=recv(sock,buf,BUF_SIZE,0))>0){
+        buf[len_r] = '\0';                                                              /* 文末EOSの追加 */
+        printf("%s\n", buf);
+        if(strstr(buf, "\r\n\r\n"))break;
+    }
+
+    if(len_r <= 0)DieWithError("recieved() failed.\n");
+    printf("received HTTP Request.\n");
+    sprintf(responce,"HTTP/1.1 200 OK\r\n");
+    if(send(sock,responce, strlen(responce),0)){}
 }
 
 int main(int argc, char **argv) {
