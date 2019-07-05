@@ -25,8 +25,24 @@ void commun(int sock){
 
     if(len_r <= 0)DieWithError("recieved() failed.\n");
     printf("received HTTP Request.\n");
-    sprintf(responce,"HTTP/1.1 200 OK\r\n");
-    if(send(sock,responce, strlen(responce),0)){}
+    sprintf(responce, "HTTP/1.1 200 OK\r\n");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
+    sprintf(responce, "Content-Type: text/html; charset=utf-8\r\n");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
+    sprintf(responce, "\r\n");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
+    sprintf(responce, "<!DOCTYPE html><html><head><title>");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
+    sprintf(responce, "ネットワークプログラミングのwebサイト");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
+    sprintf(responce, "</title></head><body>ネットワークダイスキ</body></html>");
+    if(send(sock,responce, strlen(responce),0) != strlen(responce))
+        DieWithError("send() sent a message of unexpected bytes");
 }
 
 int main(int argc, char **argv) {
