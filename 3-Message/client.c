@@ -60,17 +60,23 @@ int prepare_client_socket(char* idaddr,int port){
 }
 
 void commun(int sock){
-    char buf[BUF_SIZE];                                             /* エコー文字列用のバッファ */
-    char message[BUF_SIZE]="";                                      /* 送信するメッセージ　*/
-    scanf("%s",message);                                            /* メッセージをユーザーが入力する */
-
-    if(send(sock,message,strlen(message),0)!=strlen(message))       /* サーバーにメッセージの送信 */
-        DieWithError("Send() sent a message of unexpected");        /* 送信時エラーの判定 */
-
-    if((recv(sock,buf,BUF_SIZE,0))<=0)                               /* 受信データをバッファに格納 */
-        DieWithError("recv()failed");                               /* 受信時エラー */
-
-    printf("%s\n",buf);                                             /* 受信データを出力 */
+    char cmd[2] = "";                                               /* コマンド入力用 */
+    char withdraw[MONEY_DIGIT_SIZE+1];                              /* 引き出し額 */
+    char deposit[MONEY_DIGIT_SIZE+1];                               /* 預け入れ額 */
+    char msg[BUF_SIZE];                                             /* 送信メッセージ */
+    my_scanf(cmd, 1);
+    switch (cmd[0]){
+        case '0':                                                   /* 引き出し処理 */
+            my_scanf(withdraw,MONEY_DIGIT_SIZE);
+            sprintf(msg, "0_%s_", withdraw);
+            break;
+        case '1':                                                   /* 預け入れ処理 */
+            my_scanf(deposit,MONEY_DIGIT_SIZE);
+            sprintf(msg, "%s_0_", withdraw);
+            break;
+        default:
+            return;
+    }
 }
 
 void my_scanf(char *buf,int num_letter) {
