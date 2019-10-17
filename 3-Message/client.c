@@ -27,6 +27,18 @@ void commun(int);
 void my_scanf(char*, int);
 
 
+int main(int argc, char **argv){                                    /* 第一引数: コマンドライン引数の数, 第二引数: コマンドライン引数を格納した配列 */
+    if(argc != 3)DieWithError("arguments is not available");        /* 実行時引数の個数が正常であることを確認する */
+    char *server_idaddr = argv[1];                                  /* サーバーのIPアドレスを実行時引数から取得 */
+    int server_port = atoi(argv[2]);                                /* サーバーのポート番号を実行時引数から取得 */
+
+    int sock = prepare_client_socket(server_idaddr,server_port);
+    
+    commun(sock);                                                   /* 関数内の処理でサーバーと各種通信を行う */
+    close(sock);                                                    /* サーバーとの接続をクローズする */
+    return 0;
+}
+
 void DieWithError(char *errorMessage){
     perror(errorMessage);                                           /* 標準エラー出力にエラーメッセージを返す */
     exit(1);                                                        /* 引数は「終了ステータス」→ エラーの時は１以上を返す */
@@ -67,16 +79,4 @@ void my_scanf(char *buf,int num_letter) {
     sprintf(format, "%s%s%s", "%", num_letter, "s%[^\n]");
     scanf(format, buf);
     getchar();
-}
-
-int main(int argc, char **argv){                                    /* 第一引数: コマンドライン引数の数, 第二引数: コマンドライン引数を格納した配列 */
-    if(argc != 3)DieWithError("arguments is not available");        /* 実行時引数の個数が正常であることを確認する */
-    char *server_idaddr = argv[1];                                  /* サーバーのIPアドレスを実行時引数から取得 */
-    int server_port = atoi(argv[2]);                                /* サーバーのポート番号を実行時引数から取得 */
-
-    int sock = prepare_client_socket(server_idaddr,server_port);
-    
-    commun(sock);                                                   /* 関数内の処理でサーバーと各種通信を行う */
-    close(sock);                                                    /* サーバーとの接続をクローズする */
-    return 0;
 }
