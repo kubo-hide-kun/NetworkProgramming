@@ -12,6 +12,7 @@
 void DiewithError(char *);
 int prepare_server_socket(int);
 void commun(int);
+void read_nutil_delim(int, char*, char, int);
 /* プロトタイプ宣言終了 */
 
 int main(int argc, char **argv) {                                    /* 待ち受け用ソケットの作成(PF_INET=IPv4,SOCKET_STREAM=TCP,0=残りはお任せ) */
@@ -63,4 +64,20 @@ void commun(int sock){
     printf("%s\n",buf);                                                                 /* 受信データを出力 */
     if((send(sock,buf,strlen(buf),0))!=strlen(buf))                                     /* クライアントに受け取ったデータを返却 */
         DieWithError("send()sent a message of unexpected bytes");                       /* 送信時エラー(データの不一致) */
+}
+
+void read_nutil_delim(int sock, char *buf, char delimiter, int max_length) {
+    int len_r = 0;                                                                      /* 受信文字列 */
+    int index_letter = 0;                                                               /* 受信文字列の合計 */
+    while(index_letter < max_length -1) {
+        if ((len_r = recv(sock, buf + index_letter, 1, 0)) <= 0) {                      /* エラー */
+            printf("接続が切れました");
+            return ;
+        }
+        if(buf[index_letter] == delimiter)
+            break;
+        else
+            index_letter++;
+    }
+    buf[index_letter] = '\0';                                                           /* nullを末尾に追加 */
 }
