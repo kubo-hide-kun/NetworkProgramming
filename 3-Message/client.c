@@ -22,8 +22,9 @@ struct sockaddr_in {
 **/
 
 void DieWithError(char *);
-int prepare_client_socket(char*,int);
+int prepare_client_socket(char*, int);
 void commun(int);
+void my_scanf(char*, int);
 
 
 void DieWithError(char *errorMessage){
@@ -58,6 +59,14 @@ void commun(int sock){
         DieWithError("recv()failed");                               /* 受信時エラー */
 
     printf("%s\n",buf);                                             /* 受信データを出力 */
+}
+
+void my_scanf(char *buf,int num_letter) {
+    // num_letter文字だけ入力させる (scanfの脆弱性対策)
+    char format[20];
+    sprintf(format, "%s%s%s", "%", num_letter, "s%[^\n]");
+    scanf(format, buf);
+    getchar();
 }
 
 int main(int argc, char **argv){                                    /* 第一引数: コマンドライン引数の数, 第二引数: コマンドライン引数を格納した配列 */
