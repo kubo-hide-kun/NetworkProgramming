@@ -89,7 +89,7 @@ void commun(int sock){
 void my_scanf(char *buf,int num_letter) {
     // num_letter文字だけ入力させる (scanfの脆弱性対策)
     char format[20];
-    sprintf(format, "%s%s%s", "%", num_letter, "s%[^\n]");
+    sprintf(format, "%s%d%s", "%", num_letter, "s%[^\n]");
     scanf(format, buf);
     getchar();
 }
