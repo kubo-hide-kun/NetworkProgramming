@@ -78,6 +78,12 @@ void commun(int sock){
         default:
             return;
     }
+
+    if(send(sock, msg, strlen(msg), 0) != strlen(msg))                  /* 送信処理 */
+        DieWithError("send() sent a message of unexpected bytes");
+
+    read_until_delim(sock, msg, '_', BUF_SIZE);                         /* 受信処理 */
+    printf("残高は%d円になりました", atoi(msg));                           /* 表示処理 */
 }
 
 void my_scanf(char *buf,int num_letter) {
