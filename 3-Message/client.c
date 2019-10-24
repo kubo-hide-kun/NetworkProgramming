@@ -99,13 +99,10 @@ void read_nutil_delim(int sock, char *buf, char delimiter, int max_length) {
     int index_letter = 0;                                                               /* 受信文字列の合計 */
     while(index_letter < max_length -1) {
         if ((len_r = recv(sock, buf + index_letter, 1, 0)) <= 0) {                      /* エラー */
-            printf("接続が切れました");
-            return ;
+			DieWithError("recv() failed");
         }
-        if(buf[index_letter] == delimiter)
-            break;
-        else
-            index_letter++;
+        if(buf[index_letter] == delimiter) break;
+        else index_letter++;
     }
     buf[index_letter] = '\0';                                                           /* nullを末尾に追加 */
 }
