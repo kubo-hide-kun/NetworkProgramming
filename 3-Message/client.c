@@ -25,6 +25,7 @@ void DieWithError(char *);
 int prepare_client_socket(char*, int);
 void commun(int);
 void my_scanf(char*, int);
+void read_nutil_delim(int, char*, char, int);
 
 
 int main(int argc, char **argv){                                    /* 第一引数: コマンドライン引数の数, 第二引数: コマンドライン引数を格納した配列 */
@@ -85,4 +86,20 @@ void my_scanf(char *buf,int num_letter) {
     sprintf(format, "%s%s%s", "%", num_letter, "s%[^\n]");
     scanf(format, buf);
     getchar();
+}
+
+void read_nutil_delim(int sock, char *buf, char delimiter, int max_length) {
+    int len_r = 0;                                                                      /* 受信文字列 */
+    int index_letter = 0;                                                               /* 受信文字列の合計 */
+    while(index_letter < max_length -1) {
+        if ((len_r = recv(sock, buf + index_letter, 1, 0)) <= 0) {                      /* エラー */
+            printf("接続が切れました");
+            return ;
+        }
+        if(buf[index_letter] == delimiter)
+            break;
+        else
+            index_letter++;
+    }
+    buf[index_letter] = '\0';                                                           /* nullを末尾に追加 */
 }
