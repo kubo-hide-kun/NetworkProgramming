@@ -13,6 +13,8 @@ void DiewithError(char *);
 int prepare_server_socket(int);
 void commun(int);
 void read_nutil_delim(int, char*, char, int);
+int get_current_balance();
+void set_current_balance(int);
 /* プロトタイプ宣言終了 */
 
 int main(int argc, char **argv) {                                    /* 待ち受け用ソケットの作成(PF_INET=IPv4,SOCKET_STREAM=TCP,0=残りはお任せ) */
@@ -80,4 +82,14 @@ void read_nutil_delim(int sock, char *buf, char delimiter, int max_length) {
             index_letter++;
     }
     buf[index_letter] = '\0';                                                           /* nullを末尾に追加 */
+}
+
+// 本来はデータベースから現在の預金残高を取得
+int get_current_balance(){
+	return 1000000;
+}
+
+// 本来は預金残高をデータベースに登録
+void set_current_balance(int new_balance) {
+	return;
 }
